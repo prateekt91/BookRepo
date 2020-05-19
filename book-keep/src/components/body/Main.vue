@@ -6,9 +6,22 @@
     <button v-on:click="searchForBook" class="btn btn-primary" type="submit" id="search-button">
       Search
     </button>
-    <p class="loading" v-if="loading">LOADING</p>
-    <SearchDisplay v-if=!loading :data= result />
-    <div></div>
+    <div class="container">
+
+<div v-if="!clicked">    
+<div v-for="book in allData" :key="book._id">
+<p>isbn:{{book.isbn}}</p>
+<p>title:{{book.title}}</p>
+<p>subtitle:{{book.subtitle}}</p>
+<p>author:{{book.author}}</p>
+<p>published:{{book.published}}</p>
+<p>publisher:{{book.publisher}}</p>
+<p>description:{{book.description}}</p>
+<p>website:{{book.website}}</p> 
+</div>
+</div>
+    <SearchDisplay :books= result />
+    </div>
   </div>
 </template>
 
@@ -21,24 +34,31 @@ export default {
   },
   data: function() {
     return {
-      loading: true,
+      clicked: false,
       searchVal: "",
-      result: String,
+      result: [],
+      allData: []
     };
   },
   props: {
     Body: String
   },
+  created: function () {
+      BookSearchApi.getAllBook().then((allData) => {
+        this.allData = allData.data;
+      }).catch((error) => console.log(error))
+    },
   methods: {
     searchForBook: function() {
       BookSearchApi.getBook(this.searchVal)
         .then((result) => {
           this.result = result.data;
-          this.loading = false;
+          this.clicked = true;
+          console.log("Fetch Completes.",result.data);
         })
         .catch((error) => console.log(error))
         .finally(() => {
-          console.log("Get Book function Completes.");
+          console.log("Get Book function Completes.",this.result);
         });
     },
   },
