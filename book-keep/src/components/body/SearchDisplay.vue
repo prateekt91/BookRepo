@@ -1,15 +1,20 @@
 <template>
 <div>
-<div v-for="book in books" :key="book._id">
-<p>isbn:{{book.isbn}}</p>
-<p>title:{{book.title}}</p>
-<p>subtitle:{{book.subtitle}}</p>
-<p>author:{{book.author}}</p>
-<p>published:{{book.published}}</p>
-<p>publisher:{{book.publisher}}</p>
-<p>description:{{book.description}}</p>
-<p>website:{{book.website}}</p> 
-</div>
+ <ul class="list-unstyled" v-for="book in books" :key="book._id">
+ <li class="media">
+            <img class="mr-3" src="https://images.pexels.com/photos/590493/pexels-photo-590493.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=100&w=200" alt="Generic placeholder image" />
+            <div  id = "listContent" class="media-body">
+              <div><b>isbn:</b>{{ book.isbn }}</div>
+              <div><b>title:</b>{{ book.title }}</div>
+              <div><b>subtitle:</b>{{ book.subtitle }}</div>
+              <div><b>author:</b>{{ book.author }}</div>
+              <div><b>published:</b>{{ book.published }}</div>
+              <div><b>publisher:</b>{{ book.publisher }}</div>
+              <div><b>description:</b>{{ book.description }}</div>
+              <div><b>website:</b>{{ book.website }}</div>
+            </div>
+          </li>
+</ul>  
 </div>
 </template>
 
@@ -24,3 +29,11 @@ export default {
   }
 };
 </script>
+
+<style>
+#listContent {
+  
+    padding-left: 50px;
+
+}
+</style>
